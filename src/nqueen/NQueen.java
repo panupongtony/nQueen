@@ -11,7 +11,7 @@ import java.util.*;
  */
 class Queen {
 
-    //private int[] row; //collect array of column indexes, where the indexes are row indexes
+    //collect array of column indexes, where the indexes are row indexes
     private ArrayList<Integer> row = new ArrayList<>(); //ArrayList is in collection "List"
     private int size;
     private int solutionCount = 0;
@@ -20,7 +20,6 @@ class Queen {
 
     public Queen() {
         size = 0;
-        //row = new int[size];
         row = new ArrayList<Integer>(size);
     }
 
@@ -145,7 +144,6 @@ class Queen {
                         else MorethanSize = false; //user entered the correct row and column
                     }
                     this.row.set(user_row-1,user_column-1); //index, value you insert
-                    //this.row[user_row - 1] = user_column - 1;
                     System.out.println("\n=========================================");
                     System.out.println("Initial Board");
                     
@@ -155,7 +153,7 @@ class Queen {
                     break;
 
                 default:
-                    //normal backtracking. user doesnt have to insert anything
+                    //normal backtracking. user doesnt insert anything
                     backtrack(0, -2, -2);
                     randomSolution();
                     break;
@@ -172,11 +170,9 @@ class Queen {
                 } else if (Continue.equals("N")||Continue.equals("n")) {
                     System.out.println("\n========================================");
                     System.out.println("Goodbye");
-                    //System.out.println("========================================");
                     break;
                 } else {
                     System.out.println("\nYou should insert Y or N!!");
-                    //System.out.println("========================================");
                 }
             }
             if (continueorNot == true) {
@@ -211,9 +207,7 @@ class Queen {
     public void backtrack(int n, int user_row, int user_column) {
 
         if (n >= this.size) {
-            //printBoard();
             solutions.add(new ArrayList<>(row));
-            //solutions[solutionCount] = row;
             solutionCount++;
         } else if (n == user_row) {
             backtrack(n + 1, user_row, user_column);
@@ -221,9 +215,7 @@ class Queen {
             for (int i = 0; i < this.size; i++) {
                 if (isSafe(n, i, user_row, user_column) == true) {
                     row.set(n,i);
-                    //row[n] = i;
                     backtrack(n + 1, user_row, user_column);
-                    //row.set(n, -1);
                 }
                
             }
