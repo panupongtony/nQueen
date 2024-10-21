@@ -1,6 +1,7 @@
 package nqueen;
 
 import java.util.*;
+import java.util.InputMismatchException;
 
 /**
  *
@@ -23,74 +24,74 @@ class Queen {
         row = new ArrayList<Integer>(size);
     }
 
-    public void printEmptyBoard() {
+ public void printEmptyBoard() {
         System.out.println();
-        for (int j = 0; j < 40; j++) {
+        for (int j = 0; j < size*4; j++) {
             System.out.printf("=");
         }
-        System.out.printf("\n%8s", " ");
+        System.out.printf("\n%7s", " ");
         for (int i = 0; i < size; i++) {
-            System.out.printf("%d  ", i + 1);
+            System.out.printf("%3d", i + 1);
         }
         System.out.println();
         for (int i = 0; i < size; i++) {
-            System.out.printf("row %d | ", i + 1);
+            System.out.printf("row %2d | ", i + 1);
             for (int j = 0; j < size; j++) {
                 System.out.printf(".  ");
             }
             System.out.println();
         }
-        for (int j = 0; j < 40; j++) {
+        for (int j = 0; j < size*4; j++) {
             System.out.printf("=");
         }
     }
 
     public void printBoard() {
-        System.out.printf("%8s", " ");
-        for (int i = 0; i < size; i++) {
-            System.out.printf("%d  ", i + 1);
-        }
-        System.out.println();
+            System.out.printf("%7s", " ");
+            for (int i = 0; i < size; i++) {
+                System.out.printf("%3d", i + 1);
+            }
+            System.out.println();
 
-        for (int i = 0; i < size; i++) {
-            System.out.printf("row %d | ", i + 1);
-            for (int j = 0; j < size; j++) {
-                if (row.get(i) == j) {
-                    System.out.printf("Q  ");
-                } else {
-                    System.out.printf(".  ");
+            for (int i = 0; i < size; i++) {
+                System.out.printf("row %2d | ", i + 1);
+                for (int j = 0; j < size; j++) {
+                    if (row.get(i) == j) {
+                        System.out.printf("Q  ");
+                    } else {
+                        System.out.printf(".  ");
+                    }
                 }
+                System.out.println();
+            }
+            for (int j = 0; j < size*4; j++) {
+                System.out.printf("=");
             }
             System.out.println();
         }
-        for (int j = 0; j < 40; j++) {
-            System.out.printf("=");
-        }
-        System.out.println();
-    }
 
     public void printSolution(ArrayList<Integer> solution) {
-        System.out.printf("%8s", " ");
-        for (int i = 0; i < size; i++) {
-            System.out.printf("%d  ", i + 1);
-        }
-        System.out.println();
-        for (int i = 0; i < size; i++) {
-            System.out.printf("row %d | ", i + 1);
-            for (int j = 0; j < size; j++) {
-                if (solution.get(i) == j) {
-                    System.out.printf("Q  ");
-                } else {
-                    System.out.printf(".  ");
+            System.out.printf("%7s", " ");
+            for (int i = 0; i < size; i++) {
+                System.out.printf("%3d", i + 1);
+            }
+            System.out.println();
+            for (int i = 0; i < size; i++) {
+                System.out.printf("row %2d | ", i + 1);
+                for (int j = 0; j < size; j++) {
+                    if (solution.get(i) == j) {
+                        System.out.printf("Q  ");
+                    } else {
+                        System.out.printf(".  ");
+                    }
                 }
+                System.out.println();
+            }
+            for (int j = 0; j < size*4; j++) {
+                System.out.printf("=");
             }
             System.out.println();
         }
-        for (int j = 0; j < 40; j++) {
-            System.out.printf("=");
-        }
-        System.out.println();
-    }
 
     public void placeQueen() {
         while (true) {
@@ -100,16 +101,22 @@ class Queen {
 //if user input row/column that are more than their defined board size, MorethanSize = true
             while (Lessthan4 == true) {
                 System.out.println("Enter N for N*N board (N must be at least 4)");
-                Scanner ans = new Scanner(System.in);
-                this.size = ans.nextInt();
-                
-                if(this.size >=4) Lessthan4 = false; //not less than 4
-                else 
-                {
-                    System.out.println("=========================================");
-                    System.out.println("N should be at least 4, insert again!\n");
+                try{
+                    Scanner ans = new Scanner(System.in);
+                    this.size = ans.nextInt();
+
+                    if(this.size >=4) Lessthan4 = false; //not less than 4
+                    else 
+                    {
+                        System.out.println("=========================================");
+                        System.out.println("N should be at least 4, insert again!\n");
+                        //if user insert less than 4
+                    }
                 }
-                //if user insert less than 4
+                catch (InputMismatchException e) {
+                     System.out.println("Invalid input! Please enter an integer.\n");
+                }
+                
             }
 
             this.row = new ArrayList<>(size);
@@ -127,12 +134,24 @@ class Queen {
                 case "y":
                     int user_row = 0, user_column = 0; //initialized
                     while(MorethanSize == true){
-                       
+                       try{
                         System.out.println("Enter row");
                         Scanner user = new Scanner(System.in);
                         user_row = user.nextInt();
+                        
+                          }catch(InputMismatchException e){
+                           System.out.println("Invalid input! Please enter an integer.\n");
+                           continue;
+                        }
+                       try{
+                        Scanner user2 = new Scanner(System.in); 
                         System.out.println("Enter column");
-                        user_column = user.nextInt();
+                        user_column = user2.nextInt();
+                        
+                          }catch(InputMismatchException e){
+                           System.out.println("Invalid input! Please enter an integer.\n");
+                           continue;
+                        }
                         if(user_column > size || user_row > size)
                         {
                             System.out.println("\n=========================================");
